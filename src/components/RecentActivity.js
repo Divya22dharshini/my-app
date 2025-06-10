@@ -1,5 +1,4 @@
 'use client';
-import { FaCheckCircle } from 'react-icons/fa';
 
 export default function RecentActivity({ activities }) {
   return (
@@ -20,7 +19,7 @@ export default function RecentActivity({ activities }) {
             color: '#333',
             fontSize: '0.95rem'
           }}>
-            <FaCheckCircle style={{ color: '#ff85c0', marginRight: '10px' }} />
+            <span style={{ marginRight: '10px', color: '#ff85c0' }}>✅</span>
             <div>
               <div>{activity.text}</div>
               <small style={{ color: '#888', fontSize: '0.75rem' }}>{activity.date}</small>
