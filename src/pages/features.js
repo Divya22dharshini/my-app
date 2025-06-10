@@ -9,11 +9,16 @@ export default function Features() {
     <>
       <Head>
         <title>Features - Signly</title>
+        <link rel="stylesheet" href="/features.css" />
         <link rel="stylesheet" href="/style.css" />
       </Head>
 
-      <div className="signup-container">
+      <div className="features-section">
         <h1>Explore Signly Features</h1>
+        <p className="intro-text">
+          Discover the powerful tools and resources that help you learn and practice sign language effectively.
+        </p>
+
         <div className="features">
           <div className="feature-card">
             <h3>📘 Sign Language Dictionary</h3>
@@ -34,15 +39,15 @@ export default function Features() {
             <h3>📝 Quiz / Assessment</h3>
             <p>Take quizzes and track your learning progress with instant feedback.</p>
           </div>
-
-          <button
-            onClick={() => router.push('/')}
-            className="back-button"
-            style={{ marginTop: '2rem' }}
-          >
-            ← Back to Home
-          </button>
         </div>
+
+        <button onClick={() => router.push('/')} className="back-button">
+          ← Back to Home
+        </button>
+
+        <p className="footer-cta">
+          Ready to start learning? <a href="/signup">Create an account now</a>.
+        </p>
       </div>
     </>
   );

@@ -76,21 +76,6 @@ export default function Features() {
           </div>
         </div>
       </div>
-
-      <footer className="footer">
-        <div className="social-icons">
-          <a href="#"><i className="fab fa-facebook"></i></a>
-          <a href="#"><i className="fab fa-instagram"></i></a>
-          <a href="#"><i className="fab fa-tiktok"></i></a>
-          <a href="#"><i className="fab fa-youtube"></i></a>
-        </div>
-        <div className="footer-links">
-          <a href="#">Contact</a>
-          <a href="#">FAQ</a>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms</a>
-        </div>
-      </footer>
     </>
   );
 }

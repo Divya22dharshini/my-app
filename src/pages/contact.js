@@ -1,9 +1,17 @@
 'use client';
 import Head from 'next/head';
 import { useRouter } from 'next/navigation';
+import Navbar from '@/components/Navbar';
+import { useState } from 'react';
 
 export default function Contact() {
   const router = useRouter();
+  const [showMessage, setShowMessage] = useState(false); // state for thank you message
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setShowMessage(true); // show thank you message
+  };
 
   return (
     <>
@@ -11,27 +19,33 @@ export default function Contact() {
         <title>Contact - Signly</title>
         <link rel="stylesheet" href="/style.css" />
       </Head>
+      <Navbar />
 
-      <div className="signup-container">
-        <h1>Contact Us</h1>
-        <form className="signup-form">
-          <label htmlFor="name">Your Name</label>
-          <input type="text" id="name" placeholder="Enter your name" required />
+      <div className="contact-page">
+        <div className="contact-grid">
+          {/* Left Image */}
+          <div className="contact-image">
+            <img src="/images/CONTACT2.png" alt="Contact Visual" />
+          </div>
 
-          <label htmlFor="email">Your Email</label>
-          <input type="email" id="email" placeholder="Enter your email" required />
+          {/* Right Side - Form & Info */}
+          <div className="contact-form-container">
+            <h1>Contact Us</h1>
 
-          <label htmlFor="message">Message</label>
-          <textarea id="message" rows="4" placeholder="Your message..." required style={{
-            padding: '10px',
-            border: '1px solid #ccc',
-            borderRadius: '8px'
-          }
-          } />
+            <form className="contact-form">
+  <input type="text" placeholder="Full Name" required />
+  <input type="email" placeholder="E-mail" required />
+  <textarea placeholder="Message" rows="4" required></textarea>
+  <button type="submit">Contact Us</button>
+</form>
 
-          <button type="submit">Send Message</button>
-        </form>
-        <button onClick={() => router.push('/')} className="back-button">← Back</button>
+{/* Static Thank You Message */}
+<p className="thank-you-message">Thank you for reaching out!</p>
+
+<button onClick={() => router.push('/')} className="back-button">← Back</button>
+
+          </div>
+        </div>
       </div>
     </>
   );
