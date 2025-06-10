@@ -464,3 +464,71 @@ body {
   100% { transform: translateX(0); }
 }
 
+.nav-links li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-links a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--dark-pink);
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--dark-gray);
+}
+
+.nav-links i {
+  font-size: 1.2rem;
+}
+
+.cta-section {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.heading {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: var(--dark-pink);
+}
+
+.cta-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.btn {
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: white;
+  background-color: #ff66b2;
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #e0559f;
+}
+
+
+  @keyframes floatCloud {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+
+  .thought-cloud {
+    animation: floatCloud 4s ease-in-out infinite;
+  }
+`

@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import Navbar from '@/components/Navbar'; // ✅ Import Navbar component
 
 export default function Features() {
   return (
@@ -15,39 +16,7 @@ export default function Features() {
         <link rel="stylesheet" href="/style.css" />
       </Head>
 
-      <nav className="navbar">
-        <div className="nav-header">
-          <Image
-            src="/images/logo.png"
-            alt="Logo"
-            width={50}
-            height={50}
-          />
-          <span className="site-name">Signly</span>
-        </div>
-        <ul className="nav-links">
-          <li>
-            <a href="/home" title="Home">
-              <i className="fas fa-house"></i>
-            </a>
-          </li>
-          <li>
-            <a href="/profile" title="Profile">
-              <i className="fas fa-user"></i>
-            </a>
-          </li>
-          <li>
-            <a href="/features" title="features" className="active">
-              <i className="fas fa-star"></i>
-            </a>
-          </li>
-          <li>
-            <a href="/contact" title="Contact">
-              <i className="fas fa-envelope"></i>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <Navbar /> {/* ✅ Replaced hardcoded navbar */}
 
       <div className="container">
         <div className="left-side">
@@ -56,10 +25,10 @@ export default function Features() {
             <p>
               Explore the powerful tools and resources Signly offers to help you master sign language.
             </p>
-             <div className="cta-buttons">
+            <div className="cta-buttons">
               <a href="/signup" className="btn btn-primary">
-             Start Communicating
-            </a>
+                Start Communicating
+              </a>
               <a href="/login" className="btn btn-secondary">
                 Login
               </a>
@@ -110,18 +79,10 @@ export default function Features() {
 
       <footer className="footer">
         <div className="social-icons">
-          <a href="#">
-            <i className="fab fa-facebook"></i>
-          </a>
-          <a href="#">
-            <i className="fab fa-instagram"></i>
-          </a>
-          <a href="#">
-            <i className="fab fa-tiktok"></i>
-          </a>
-          <a href="#">
-            <i className="fab fa-youtube"></i>
-          </a>
+          <a href="#"><i className="fab fa-facebook"></i></a>
+          <a href="#"><i className="fab fa-instagram"></i></a>
+          <a href="#"><i className="fab fa-tiktok"></i></a>
+          <a href="#"><i className="fab fa-youtube"></i></a>
         </div>
         <div className="footer-links">
           <a href="#">Contact</a>
