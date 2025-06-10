@@ -512,7 +512,7 @@ body {
   border-radius: 8px;
   text-decoration: none;
   color: white;
-  background-color: var(--dark-pink);
+  background-color: #c7347e;
   border: none;
   transition: background-color 0.3s;
 }
