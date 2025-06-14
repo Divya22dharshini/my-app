@@ -1,16 +1,36 @@
 'use client';
 import Head from 'next/head';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import emailjs from '@emailjs/browser';
 import Navbar from '@/components/Navbar';
-import { useState } from 'react';
 
 export default function Contact() {
   const router = useRouter();
-  const [showMessage, setShowMessage] = useState(false); // state for thank you message
+  const form = useRef();
+  const [showMessage, setShowMessage] = useState(false);
+  const [sending, setSending] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setShowMessage(true); // show thank you message
+    setSending(true);
+
+    emailjs.sendForm(
+      'service_homy6cc',       // Replace with your actual Service ID
+      'template_g3s6oqm',      // Replace with your actual Template ID
+      form.current,
+      'HN8-eWK0d6YAcBBKs'        // Replace with your actual Public Key
+    ).then(
+      () => {
+        setShowMessage(true);
+        setSending(false);
+        form.current.reset();
+      },
+      (error) => {
+        console.error('Failed to send email:', error);
+        setSending(false);
+      }
+    );
   };
 
   return (
@@ -32,18 +52,27 @@ export default function Contact() {
           <div className="contact-form-container">
             <h1>Contact Us</h1>
 
-            <form className="contact-form">
-  <input type="text" placeholder="Full Name" required />
-  <input type="email" placeholder="E-mail" required />
-  <textarea placeholder="Message" rows="4" required></textarea>
-  <button type="submit">Contact Us</button>
-</form>
+            <form className="contact-form" ref={form} onSubmit={handleSubmit}>
+              <input type="text" name="from_name" placeholder="Full Name" required />
+              <input type="email" name="from_email" placeholder="E-mail" required />
+              <textarea name="message" placeholder="Message" rows="4" required></textarea>
+              <button type="submit" disabled={sending}>
+                {sending ? 'Sending...' : 'Contact Us'}
+              </button>
+            </form>
 
-{/* Static Thank You Message */}
-<p className="thank-you-message">Thank you for reaching out!</p>
+            {showMessage && (
+              <p className="thank-you-message">✅ Thank you for reaching out!</p>
+            )}
 
-<button onClick={() => router.push('/')} className="back-button">← Back</button>
+            <p style={{ marginTop: '1rem' }}>
+              Or email us directly at{' '}
+              <a href="mailto:signlivya@gmail.com">signly.helpdesk@gmail.com</a>
+            </p>
 
+            <button onClick={() => router.push('/')} className="back-button">
+              ← Back
+            </button>
           </div>
         </div>
       </div>

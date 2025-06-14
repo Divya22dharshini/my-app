@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import Navbar from '@/components/Navbar'; // ✅ Import Navbar component
+import Navbar from '@/components/navbarland'; // ✅ Import Navbar component
 
 export default function Features() {
   return (

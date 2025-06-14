@@ -69,7 +69,7 @@ export default function SignlyStart() {
               Sign Language Dictionary
             </a>
             <a
-              href="/videos"
+              href="/video"
               className="btn btn-primary"
               onMouseEnter={() => setHoveredBtn('videos')}
               onMouseLeave={() => setHoveredBtn('')}
@@ -77,7 +77,7 @@ export default function SignlyStart() {
               Video Tutorials
             </a>
             <a
-              href="/exercises"
+              href="/SignGames"
               className="btn btn-primary"
               onMouseEnter={() => setHoveredBtn('exercises')}
               onMouseLeave={() => setHoveredBtn('')}
