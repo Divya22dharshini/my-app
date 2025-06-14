@@ -2,7 +2,8 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Navbar from '@/components/Navbar';
-import { markTaskComplete } from '../utils/taskCompletionUtils';
+import { markTaskComplete } from '../utils/taskcompletionUtils';
+
 
 const imageList = [
   'a.png', 'b.png', 'c.png', 'd.png', 'e.png', 'f.png', 'g.png', 'h.png', 'i.png', 'j.png',

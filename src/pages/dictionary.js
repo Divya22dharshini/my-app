@@ -2,7 +2,7 @@
 import Head from 'next/head';
 import { useState } from 'react';
 import Navbar from '@/components/Navbar';
-import { markTaskComplete } from '../utils/taskCompletionUtils';
+import { markTaskComplete } from '../utils/taskcompletionUtils';
 
 export default function DictionaryPage() {
   const [index, setIndex] = useState(0);

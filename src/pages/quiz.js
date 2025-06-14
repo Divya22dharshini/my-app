@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import styles from '../styles/quiz.module.css';
 import Navbar from "@/components/Navbar";
-import { markTaskComplete } from '../utils/taskCompletionUtils';
+import { markTaskComplete } from '../utils/taskcompletionUtils';
 
 
 

@@ -16,10 +16,10 @@ export default function Contact() {
     setSending(true);
 
     emailjs.sendForm(
-      'service_homy6cc',       // Replace with your actual Service ID
-      'template_g3s6oqm',      // Replace with your actual Template ID
+      'service_homy6cc',       
+      'template_g3s6oqm',      
       form.current,
-      'HN8-eWK0d6YAcBBKs'        // Replace with your actual Public Key
+      'HN8-eWK0d6YAcBBKs'       
     ).then(
       () => {
         setShowMessage(true);

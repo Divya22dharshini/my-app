@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { useState } from 'react';
 import styles from '../styles/video.module.css';
 import Navbar from '@/components/Navbar';
-import { markTaskComplete } from '../utils/taskCompletionUtils';
+import { markTaskComplete } from '../utils/taskcompletionUtils';
 
 export default function VideoPage() {
   const [completed, setCompleted] = useState(false);
