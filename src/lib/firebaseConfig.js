@@ -10,13 +10,13 @@ import { getFirestore } from 'firebase/firestore';
 
 // ✅ Replace with your actual config from Firebase Console
 const firebaseConfig = {
-  apiKey: "AIzaSyA7QFjAbmfWsTEprgUXlY6ROGg7X2EVLBI",
-  authDomain: "signly-83bdd.firebaseapp.com",
-  projectId: "signly-83bdd",
-  storageBucket: "signly-83bdd.firebasestorage.app",
-  messagingSenderId: "214387650228",
-  appId: "1:214387650228:web:4934c07fe4811b6488f1e1",
-  measurementId: "G-ZXJ2HEKL9S"
+  apiKey: "AIzaSyC3JNr5nF_cPs7Q2VSRMQb18Uio36OqXY0",
+  authDomain: "signlyy.firebaseapp.com",
+  projectId: "signlyy",
+  storageBucket: "signlyy.firebasestorage.app",
+  messagingSenderId: "57507664901",
+  appId: "1:57507664901:web:d29c9e8f8d95e5184a786c",
+  measurementId: "G-D3J8EC5DSL"
 };
 
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();

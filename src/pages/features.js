@@ -13,29 +13,6 @@ export default function Features() {
   const [loading, setLoading] = useState(false);
   const [history, setHistory] = useState([]);
 
-  // REMOVED: imageMap and getImageForWord are no longer needed
-  /*
-  const imageMap = {
-    hello: '/images/hello.gif',
-    hi: '/images/hello.gif',
-    sorry: '/images/sorry.gif',
-    'thank you': '/images/thankyou.gif',
-    thanks: '/images/thankyou.gif',
-    dictionary: '/images/dictionary.gif',
-    videos: '/images/videos.gif',
-    exercises: '/images/exercises.gif',
-    quiz: '/images/quiz.gif',
-    test: '/images/quiz.gif',
-    practice: '/images/exercises.gif',
-  };
-
-  const getImageForWord = (word) => {
-    const key = Object.keys(imageMap).find(
-      k => word.trim().toLowerCase().includes(k)
-    );
-    return key ? imageMap[key] : null;
-  };
-  */
 
   // Helper function to parse the AI response
   const parseAiResponse = (fullResponse) => {
