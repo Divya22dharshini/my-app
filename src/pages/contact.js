@@ -1,6 +1,6 @@
 'use client';
 import Head from 'next/head';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import emailjs from '@emailjs/browser';
 import Navbar from '@/components/Navbar';
@@ -11,26 +11,34 @@ export default function Contact() {
   const [showMessage, setShowMessage] = useState(false);
   const [sending, setSending] = useState(false);
 
+  useEffect(() => {
+    // initialize EmailJS with your public key so sendForm can be called without the key param
+    try {
+      emailjs.init('HN8-eWK0d6YAcBBKs');
+    } catch (e) {
+      console.warn('EmailJS init failed or already initialized', e);
+    }
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setSending(true);
 
-    emailjs.sendForm(
-      'service_homy6cc',       
-      'template_g3s6oqm',      
-      form.current,
-      'HN8-eWK0d6YAcBBKs'       
-    ).then(
-      () => {
-        setShowMessage(true);
-        setSending(false);
-        form.current.reset();
-      },
-      (error) => {
-        console.error('Failed to send email:', error);
-        setSending(false);
-      }
-    );
+    emailjs
+      .sendForm('service_homy6cc', 'template_g3s6oqm', form.current)
+      .then(
+        () => {
+          setShowMessage(true);
+          setSending(false);
+          form.current.reset();
+        },
+        (error) => {
+          console.error('Failed to send email via EmailJS:', error);
+          setSending(false);
+          // show a helpful message to the user
+          alert('Failed to send message. Please try again or email us directly.');
+        }
+      );
   };
 
   return (
@@ -67,7 +75,7 @@ export default function Contact() {
 
             <p style={{ marginTop: '1rem' }}>
               Or email us directly at{' '}
-              <a href="mailto:signlivya@gmail.com">signly.helpdesk@gmail.com</a>
+              <a href="mailto:signly.helpdesk@gmail.com">signly.helpdesk@gmail.com</a>
             </p>
 
             <button onClick={() => router.push('/')} className="back-button">
