@@ -2,7 +2,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import { createUserWithEmailAndPassword, setPersistence, browserLocalPersistence } from 'firebase/auth';
 import { auth, db } from '../lib/firebaseConfig'; // use correct relative path
 import { doc, setDoc } from 'firebase/firestore';
 
@@ -17,6 +17,13 @@ export default function Signup() {
     e.preventDefault();
     setError('');
     try {
+      // Ensure auth persistence is set so the session is retained across reloads
+      try {
+        await setPersistence(auth, browserLocalPersistence);
+      } catch (pErr) {
+        console.warn('Could not set auth persistence:', pErr);
+      }
+
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
@@ -26,21 +33,7 @@ export default function Signup() {
         uid: user.uid,
       });
 
-      // Wait for auth state to be available before redirecting to avoid race conditions
-      await new Promise((resolve) => {
-        const unsubscribe = onAuthStateChanged(auth, (u) => {
-          if (u) {
-            unsubscribe();
-            resolve(true);
-          }
-        });
-        // safety timeout in case onAuthStateChanged doesn't fire quickly
-        setTimeout(() => {
-          try { unsubscribe(); } catch (e) {}
-          resolve(false);
-        }, 3000);
-      });
-
+      // AuthProvider added in _app will pick up the signed-in user; safe to navigate now
       router.push('/home');
     } catch (err) {
   console.error("Full Firebase error:", err); // ← This is key
