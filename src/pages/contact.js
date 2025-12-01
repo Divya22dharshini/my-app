@@ -25,7 +25,7 @@ export default function Contact() {
     setSending(true);
 
     emailjs
-      .sendForm('service_homy6cc', 'template_g3s6oqm', form.current)
+      .sendForm('service_jkvn9th', 'template_g3s6oqm', form.current)
       .then(
         () => {
           setShowMessage(true);
