@@ -28,24 +28,73 @@ export default function Profile() {
   };
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      const currentUser = auth.currentUser;
-      if (currentUser) {
-        const userRef = doc(db, 'users', currentUser.uid);
-        const userSnap = await getDoc(userRef);
+    let unsub = null;
 
-        if (userSnap.exists()) {
-          const data = userSnap.data();
-          setUserInfo({ name: data.name, email: data.email });
-          setProgress(data.progress || 0);
-          setRecentActivities(data.recentActivities || []);
+    const init = async () => {
+      // Prefer the modular onAuthStateChanged import
+      try {
+        const { onAuthStateChanged } = await import('firebase/auth');
+        unsub = onAuthStateChanged(auth, async (currentUser) => {
+          if (currentUser) {
+            const userRef = doc(db, 'users', currentUser.uid);
+            const userSnap = await getDoc(userRef);
+
+            if (userSnap.exists()) {
+              const data = userSnap.data();
+              setUserInfo({ name: data.name, email: data.email });
+              setProgress(data.progress || 0);
+              setRecentActivities(data.recentActivities || []);
+            }
+          } else {
+            router.push('/login');
+          }
+        });
+      } catch (e) {
+        // Fallback: try to use auth.onAuthStateChanged if present
+        if (auth && typeof auth.onAuthStateChanged === 'function') {
+          unsub = auth.onAuthStateChanged(async (currentUser) => {
+            if (currentUser) {
+              const userRef = doc(db, 'users', currentUser.uid);
+              const userSnap = await getDoc(userRef);
+
+              if (userSnap.exists()) {
+                const data = userSnap.data();
+                setUserInfo({ name: data.name, email: data.email });
+                setProgress(data.progress || 0);
+                setRecentActivities(data.recentActivities || []);
+              }
+            } else {
+              router.push('/login');
+            }
+          });
+        } else {
+          // last-resort: check currentUser once
+          const currentUser = auth.currentUser;
+          if (currentUser) {
+            const userRef = doc(db, 'users', currentUser.uid);
+            const userSnap = await getDoc(userRef);
+            if (userSnap.exists()) {
+              const data = userSnap.data();
+              setUserInfo({ name: data.name, email: data.email });
+              setProgress(data.progress || 0);
+              setRecentActivities(data.recentActivities || []);
+            }
+          } else {
+            router.push('/login');
+          }
         }
-      } else {
-        router.push('/login');
       }
     };
 
-    fetchUserData();
+    init();
+
+    return () => {
+      try {
+        if (unsub) unsub();
+      } catch (e) {
+        // ignore
+      }
+    };
   }, [router]);
 
   return (

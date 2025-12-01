@@ -2,7 +2,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from '../lib/firebaseConfig'; // use correct relative path
 import { doc, setDoc } from 'firebase/firestore';
 
@@ -24,6 +24,21 @@ export default function Signup() {
         name,
         email,
         uid: user.uid,
+      });
+
+      // Wait for auth state to be available before redirecting to avoid race conditions
+      await new Promise((resolve) => {
+        const unsubscribe = onAuthStateChanged(auth, (u) => {
+          if (u) {
+            unsubscribe();
+            resolve(true);
+          }
+        });
+        // safety timeout in case onAuthStateChanged doesn't fire quickly
+        setTimeout(() => {
+          try { unsubscribe(); } catch (e) {}
+          resolve(false);
+        }, 3000);
       });
 
       router.push('/home');
