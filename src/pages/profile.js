@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useAuth } from '@/context/AuthContext';
 import Navbar from '@/components/Navbar';
 import UserBadge from '@/components/UserBadge';
 import LogoutButton from '@/components/LogoutButton';
@@ -27,75 +28,31 @@ export default function Profile() {
     }
   };
 
+  const { user, loading } = useAuth();
+
   useEffect(() => {
-    let unsub = null;
+    const fetchUserData = async () => {
+      if (user) {
+        const userRef = doc(db, 'users', user.uid);
+        const userSnap = await getDoc(userRef);
 
-    const init = async () => {
-      // Prefer the modular onAuthStateChanged import
-      try {
-        const { onAuthStateChanged } = await import('firebase/auth');
-        unsub = onAuthStateChanged(auth, async (currentUser) => {
-          if (currentUser) {
-            const userRef = doc(db, 'users', currentUser.uid);
-            const userSnap = await getDoc(userRef);
-
-            if (userSnap.exists()) {
-              const data = userSnap.data();
-              setUserInfo({ name: data.name, email: data.email });
-              setProgress(data.progress || 0);
-              setRecentActivities(data.recentActivities || []);
-            }
-          } else {
-            router.push('/login');
-          }
-        });
-      } catch (e) {
-        // Fallback: try to use auth.onAuthStateChanged if present
-        if (auth && typeof auth.onAuthStateChanged === 'function') {
-          unsub = auth.onAuthStateChanged(async (currentUser) => {
-            if (currentUser) {
-              const userRef = doc(db, 'users', currentUser.uid);
-              const userSnap = await getDoc(userRef);
-
-              if (userSnap.exists()) {
-                const data = userSnap.data();
-                setUserInfo({ name: data.name, email: data.email });
-                setProgress(data.progress || 0);
-                setRecentActivities(data.recentActivities || []);
-              }
-            } else {
-              router.push('/login');
-            }
-          });
-        } else {
-          // last-resort: check currentUser once
-          const currentUser = auth.currentUser;
-          if (currentUser) {
-            const userRef = doc(db, 'users', currentUser.uid);
-            const userSnap = await getDoc(userRef);
-            if (userSnap.exists()) {
-              const data = userSnap.data();
-              setUserInfo({ name: data.name, email: data.email });
-              setProgress(data.progress || 0);
-              setRecentActivities(data.recentActivities || []);
-            }
-          } else {
-            router.push('/login');
-          }
+        if (userSnap.exists()) {
+          const data = userSnap.data();
+          setUserInfo({ name: data.name, email: data.email });
+          setProgress(data.progress || 0);
+          setRecentActivities(data.recentActivities || []);
         }
       }
     };
 
-    init();
-
-    return () => {
-      try {
-        if (unsub) unsub();
-      } catch (e) {
-        // ignore
+    if (!loading) {
+      if (user) {
+        fetchUserData();
+      } else {
+        router.push('/login');
       }
-    };
-  }, [router]);
+    }
+  }, [user, loading, router]);
 
   return (
     <>

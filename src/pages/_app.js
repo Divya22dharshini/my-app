@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import '../styles/globals.css'; // or wherever your main CSS is
+import { AuthProvider } from '@/context/AuthContext';
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -10,7 +11,9 @@ function MyApp({ Component, pageProps }) {
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         />
       </Head>
-      <Component {...pageProps} />
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
     </>
   );
 }
